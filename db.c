@@ -37,12 +37,9 @@ struct database_t load_db(char *filename)
     struct database_t db = {0};
 
     int fd = open(filename, O_RDONLY);
-    if (fd < 0)
-    {
-        perror(filename);
-        return db;
-    }
-    db.header = load_header(fd);
     db.fd = fd;
+
+    if (db.fd > 0) db.header = load_header(fd);
+
     return db;
 }

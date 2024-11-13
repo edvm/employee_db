@@ -21,7 +21,12 @@ int main(int argc, char *argv[])
     if (validate_args(argc, argv)) return -1;
 
     struct database_t db = load_db(argv[1]);
-    if (db.fd <= 0) return -1;
+
+    if (db.fd < 1) 
+    {
+        perror(argv[1]);
+        return -1;
+    }
 
     print(&db.header);
 
